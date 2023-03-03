@@ -6,14 +6,17 @@ class Queue:
 
     # O(1) time | O(1) space (amortized)
     def push(self, n):
-        if (self.tail + 1) % self.max_elem == self.head:
+        if self.get_next_idx() == self.head:
             self.extend_queue()
-        idx = (self.tail + 1) % self.max_elem
+        idx = self.get_next_idx()
         self.queue[idx] = n
         self.tail = idx
         if self.head == -1:
             self.head = 0
         return "ok"
+
+    def get_next_idx(self):
+        return (self.tail + 1) % self.max_elem
 
     # O(n) time | O(n) space
     def extend_queue(self):
