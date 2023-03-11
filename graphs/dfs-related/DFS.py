@@ -1,14 +1,16 @@
+# O(|V| + |E|) time | O(|V|) space
+# (space time correct?)
 def apply_dfs():
     input_graph = read_input()
     adj_list = construct_adjacency_list(input_graph)
-    visited = []
+    visited = set()
     dfs(adj_list, visited, 1)
-    visited.sort()
+    visited = sorted(list(visited))
     write_output(visited)
 
 
 def dfs(adj_list, visited, vertex):
-    visited.append(vertex)
+    visited.add(vertex)
     if vertex not in adj_list:
         return
     for child in adj_list[vertex]:
