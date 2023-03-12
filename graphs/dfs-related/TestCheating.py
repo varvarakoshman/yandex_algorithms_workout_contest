@@ -1,3 +1,5 @@
+# O(|V| + |E|) time | O(|V|) space
+# (space time correct?)
 def test_cheating():
     input_graph = read_input()
     adj_list = construct_adjacency_list(input_graph)
