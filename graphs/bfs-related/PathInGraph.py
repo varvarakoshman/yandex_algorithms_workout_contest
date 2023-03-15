@@ -12,6 +12,8 @@ def read_input():
     return lines
 
 
+# modified BFS
+# O(|V|+|E|) time | O(|V|) space
 def get_shortest_path(adj_list, start, end):
     if start == end:
         return [], 0

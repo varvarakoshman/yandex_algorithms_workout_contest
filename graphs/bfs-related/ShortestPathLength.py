@@ -12,7 +12,8 @@ def read_input():
     return lines
 
 
-# BFS
+# modified BFS
+# O(|V|+|E|) time | O(|V|) space
 def get_shortest_path_len(adj_list, start, end):
     destinations = [-1] * (len(adj_list) + 1)
     destinations[start] = 0
