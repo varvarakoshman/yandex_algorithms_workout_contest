@@ -2,8 +2,8 @@ def graph_min_path():
     input_graph = read_input()
     adj_list = construct_adjacency_list(input_graph)
     start, end = [int(v) for v in input_graph[-1].split()]
-    min_path = get_shortest_path(adj_list, start, end)
-    write_output(min_path)
+    min_path, min_path_len = get_shortest_path(adj_list, start, end)
+    write_output(min_path, min_path_len)
 
 
 def read_input():
@@ -13,6 +13,8 @@ def read_input():
 
 
 def get_shortest_path(adj_list, start, end):
+    if start == end:
+        return [], 0
     visited = {start}
     predecessors = [-1] * (len(adj_list) + 1)
     queue_vertices = [start]
@@ -27,7 +29,11 @@ def get_shortest_path(adj_list, start, end):
                 visited.add(neighbour)
                 predecessors[neighbour] = vertex
                 queue_vertices.append(neighbour)
-    return unroll_path(predecessors, start, end)
+    if predecessors[end] != -1:
+        path = unroll_path(predecessors, start, end)
+        return path, len(path) - 1
+    else:
+        return [], -1
 
 
 def unroll_path(predecessors, start, end):
@@ -53,12 +59,11 @@ def construct_adjacency_list(input_graph):
     return adj_list
 
 
-def write_output(shortest_path):
+def write_output(min_path, min_path_len):
     with open('output.txt', 'w') as output:
-        path_len = len(shortest_path) - 1
-        output.write(str(path_len) + '\n')
-        if path_len > 0:
-            path_joined = " ".join([str(vertex) for vertex in shortest_path])
+        output.write(str(min_path_len) + '\n')
+        if min_path_len > 0:
+            path_joined = " ".join([str(vertex) for vertex in min_path])
             output.write(path_joined)
 
 
